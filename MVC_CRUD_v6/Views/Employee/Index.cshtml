@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MVC_CRUD_v6.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1> 
+@using (Html.BeginForm())
+{
+    <div class = "input-group">
+        @Html.TextBox("SearchByName", null , new  { @class = "form-control", @placeholder = "Search BY Employee Name..."})
+        <input type = "submit" value="Search" class="btn btn-outline-success">
+        <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
+
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeNumber)
+            </th>
+            <th>
+                @Html.ActionLink("Employee Name","Index", new {sortField="EmployeeName",currentSortField=ViewBag.sortField,sortDirection=ViewBag.sortDirection})
+               @* @Html.DisplayNameFor(model => model.EmployeeName)*@
+            </th>
+            <th>
+              @*  @Html.DisplayNameFor(model => model.DOB)*@
+                 @Html.ActionLink("Date Of Birth","Index", new {sortField="DOB",currentSortField=ViewBag.sortField,sortDirection=ViewBag.sortDirection})
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HiringDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrossSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HiringDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrossSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
